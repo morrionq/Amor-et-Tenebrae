@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С Днём всех влюблённых, моя Душа</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 30% 30%, #1a0b0b 0%, #070101 100%);
+            font-family: 'Cinzel', 'Times New Roman', serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Анимированные частицы (пепел/снег) */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1.5" fill="rgba(180,130,120,0.3)"/><circle cx="90" cy="30" r="2" fill="rgba(200,150,140,0.4)"/><circle cx="40" cy="80" r="1" fill="rgba(210,160,150,0.2)"/><circle cx="80" cy="70" r="1.2" fill="rgba(170,120,110,0.25)"/></svg>');
+            background-size: 200px 200px;
+            pointer-events: none;
+            opacity: 0.5;
+            animation: fall 20s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10%); }
+            100% { transform: translateY(10%); }
+        }
+
+        .card {
+            position: relative;
+            max-width: 750px;
+            width: 100%;
+            background: rgba(10, 3, 3, 0.7);
+            backdrop-filter: blur(5px);
+            border: 3px solid #632b2b;
+            border-radius: 30px 30px 30px 30px;
+            box-shadow: 0 0 40px rgba(180, 20, 20, 0.3), inset 0 0 30px #2f0f0f;
+            padding: 40px 30px;
+            z-index: 10;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 60px rgba(200, 30, 30, 0.6), inset 0 0 40px #4a1818;
+        }
+
+        /* Орнамент (углы) */
+        .corner {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-color: #a53f3f;
+            border-style: solid;
+            border-width: 0;
+            filter: drop-shadow(0 0 6px #c97f7f);
+        }
+
+        .corner-tl {
+            top: 15px;
+            left: 15px;
+            border-top-width: 3px;
+            border-left-width: 3px;
+            border-radius: 20px 0 0 0;
+        }
+
+        .corner-tr {
+            top: 15px;
+            right: 15px;
+            border-top-width: 3px;
+            border-right-width: 3px;
+            border-radius: 0 20px 0 0;
+        }
+
+        .corner-bl {
+            bottom: 15px;
+            left: 15px;
+            border-bottom-width: 3px;
+            border-left-width: 3px;
+            border-radius: 0 0 0 20px;
+        }
+
+        .corner-br {
+            bottom: 15px;
+            right: 15px;
+            border-bottom-width: 3px;
+            border-right-width: 3px;
+            border-radius: 0 0 20px 0;
+        }
+
+        /* Центральный витраж (роза) */
+        .rose-window {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px;
+            background: radial-gradient(circle, #540d0d, #1f0404);
+            border-radius: 50%;
+            border: 4px double #a34e4e;
+            box-shadow: 0 0 30px #b33b3b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            transform: rotate(5deg);
+            transition: transform 0.3s ease;
+        }
+
+        .rose-window:hover {
+            transform: rotate(0deg) scale(1.02);
+            box-shadow: 0 0 50px #e04b4b;
+        }
+
+        .rose-window span {
+            filter: drop-shadow(0 0 10px crimson);
+        }
+
+        /* Череп с розой (декоративный элемент) */
+        .skull {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            font-size: 48px;
+            margin: 10px 0 10px;
+            opacity: 0.8;
+        }
+
+        .skull span {
+            font-size: 50px;
+            animation: flicker 3s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; text-shadow: 0 0 10px red; }
+            50% { opacity: 0.7; text-shadow: 0 0 20px darkred; }
+            100% { opacity: 1; text-shadow: 0 0 10px red; }
+        }
+
+        /* Текст */
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: #e2c7c7;
+            text-align: center;
+            text-shadow: 0 0 15px #b0302a, 2px 2px 0 #2f0a0a;
+            margin-bottom: 10px;
+            word-break: break-word;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 22px;
+            font-style: italic;
+            color: #ac8b8b;
+            border-top: 1px dashed #6b2e2e;
+            border-bottom: 1px dashed #6b2e2e;
+            padding: 12px 10px;
+            margin: 15px 0 20px;
+            letter-spacing: 2px;
+            word-spacing: 4px;
+            text-shadow: 0 0 8px #7a3939;
+        }
+
+        .verse {
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            font-size: 20px;
+            line-height: 1.8;
+            color: #d4c0c0;
+            text-align: center;
+            margin: 30px 0;
+            padding: 0 10px;
+            white-space: pre-line;
+            border-left: 2px solid #702525;
+            border-right: 2px solid #702525;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .verse p {
+            margin: 10px 0;
+            font-style: italic;
+        }
+
+        .signature {
+            font-size: 28px;
+            font-family: 'Cinzel', serif;
+            text-align: right;
+            color: #b38383;
+            margin-top: 25px;
+            border-top: 2px ridge #6d2e2e;
+            padding-top: 20px;
+            padding-right: 20px;
+            text-shadow: 0 0 10px #b34545;
+            letter-spacing: 2px;
+        }
+
+        .signature span {
+            font-size: 35px;
+            display: block;
+            margin-top: 5px;
+            color: #dbb2b2;
+        }
+	/* Стиль для "И томный воздыхатель" */
+        .sigh {
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            font-size: 18px;
+            font-style: italic;
+            letter-spacing: 3px;
+            color: #b38686;
+            text-align: right;
+            margin-top: -10px;
+            margin-right: 25px;
+            text-shadow: 0 0 8px #a54f4f;
+            border-bottom: 1px dotted #5f2c2c;
+            padding-bottom: 8px;
+            display: inline-block;
+            float: right;
+            clear: both;
+        }
+        
+        @media (max-width: 500px) {
+            .sigh {
+                font-size: 14px;
+                float: none;
+                text-align: center;
+                margin-right: 0;
+            }
+        }
+        /* Кресты и розы */
+        .fleuron {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 15px 0 5px;
+            color: #793c3c;
+            font-size: 22px;
+        }
+
+        /* Адаптация для мобильных */
+        @media (max-width: 500px) {
+            .title {
+                font-size: 30px;
+                letter-spacing: 3px;
+            }
+            .verse {
+                font-size: 16px;
+            }
+            .signature {
+                font-size: 22px;
+            }
+            .rose-window {
+                width: 100px;
+                height: 100px;
+                font-size: 55px;
+            }
+        }
+    </style>
+    <!-- Подключаем шрифт Cinzel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital@1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="card">
+        <!-- Уголки -->
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+
+        <!-- Стекло с розой -->
+        <div class="rose-window">
+            <span>🥀</span>
+        </div>
+
+        <!-- Череп с розой (атмосфера) -->
+        <div class="skull">
+            <span>💀</span>
+            <span>🖤</span>
+            <span>🥀</span>
+        </div>
+
+        <!-- Заголовок -->
+        <div class="title">
+            С Днём<br>Влюблённых
+        </div>
+
+        <!-- Подзаголовок на латыни -->
+        <div class="subtitle">
+            ♱ Amor et Tenebrae ♱
+        </div>
+
+        <!-- Основное стихотворение -->
+        <div class="verse">
+            <p>В чертогах мрака, где свет угас,</p>
+            <p>Твой образ — самый прекрасный для нас.</p>
+            <p>Среди руин и печальных роз</p>
+            <p>Ты — та, кто дарит сердцу биение вновь.</p>
+            <p> </p>
+            <p>Пусть вечность дышит в холоде стен,</p>
+            <p>Ты — мой покой и сладкий плен.</p>
+            <p><strong>С 14 февраля, моя Душа и Вечная любовь.</strong></p>
+
+            <p style="font-size: 26px; margin-top: 20px;">[Алёна]</p>
+        </div>
+
+        <!-- Декоративные элементы -->
+        <div class="fleuron">
+            <span>⚜️</span>
+            <span>🕯️</span>
+            <span>⚜️</span>
+        </div>
+
+        <!-- Подпись -->
+        <div class="signature">
+            Твой вечный странник,
+
+        </div>
+        <!-- Добавленная строка "И томный воздыхатель" -->
+        <div class="sigh">
+            ✦ И томный воздыхатель ✦
+        </div>
+
+
+        <!-- Скрытый намёк на вечность (мелкий текст) -->
+        <div style="text-align: center; margin-top: 15px; font-size: 12px; color: #4d2a2a; letter-spacing: 2px;">
+            ✦  AETERNE  ✦
+        </div>
+    </div>
+
+    <!-- Эффект летящих лепестков (ещё одна деталь) - можно добавить интерактивности -->
+    <script>
+        // Простой скрипт для создания мистического мерцания (по желанию)
+        document.addEventListener('mousemove', function(e) {
+            let card = document.querySelector('.card');
+            let x = e.clientX / window.innerWidth;
+            let y = e.clientY / window.innerHeight;
+            let shadowX = (x - 0.5) * 20;
+            let shadowY = (y - 0.5) * 20;
+            card.style.boxShadow = `${shadowX}px ${shadowY}px 40px rgba(180,20,20,0.5), inset 0 0 30px #2f0f0f`;
+        });
+    </script>
+</body>
+</html>
